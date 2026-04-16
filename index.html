@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ishaan Maheshwari — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
-<audio id="bg-music" loop>
+<audio id="bg-music" loop autoplay>
   <source src="mp3.mp3" type="audio/mpeg">
 </audio>
 <style>
@@ -338,54 +338,126 @@ body {
   width:0; transition:width 1.8s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* ACHIEVEMENT SCROLLS */
-.ach-item {
-  background:rgba(10,6,20,0.7);
-  border:1px solid rgba(201,168,76,0.08);
-  border-radius:3px; padding:16px 20px;
-  margin-bottom:10px;
-  display:flex; align-items:center; gap:16px;
-  position:relative; overflow:hidden;
-  backdrop-filter:blur(16px);
-  transition:all 0.3s;
+/* ═══════ TROPHY ROOM — BIG IMAGE CARDS ═══════ */
+.trophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
 }
-.ach-item::before {
-  content:'';
-  position:absolute; left:0; top:0; bottom:0; width:2px;
-  background:linear-gradient(to bottom,rgba(201,168,76,0.4),rgba(106,61,154,0.3));
+
+.trophy-card {
+  background: rgba(10,6,20,0.85);
+  border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(16px);
+  transition: all 0.4s;
+  cursor: default;
 }
-.ach-item:hover {
-  border-color:rgba(201,168,76,0.18);
-  transform:translateX(5px);
-  background:rgba(14,9,26,0.8);
+.trophy-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.03) 0%, transparent 60%, rgba(74,37,112,0.03) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
-.ach-medal { font-size:1.5rem; flex-shrink:0; opacity:0.8; }
-.ach-body { flex:1; min-width:0; }
-.ach-name {
-  font-family:'Cinzel',serif; font-size:13.5px;
-  font-weight:600; color:rgba(212,200,168,0.85);
+.trophy-card:hover {
+  border-color: rgba(201,168,76,0.3);
+  box-shadow: 0 8px 40px rgba(201,168,76,0.1), 0 0 60px rgba(74,37,112,0.08);
+  transform: translateY(-6px);
 }
-.ach-sub {
-  font-family:'IM Fell English',serif; font-style:italic;
-  font-size:11.5px; color:rgba(201,168,76,0.45); margin-top:2px;
+
+/* Left accent line */
+.trophy-card::after {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.5), rgba(106,61,154,0.3));
+  z-index: 2;
 }
-.ach-img {
-  flex-shrink:0; width:64px; height:64px; border-radius:4px;
-  object-fit:cover; border:1px solid rgba(201,168,76,0.15);
-  opacity:0.82; transition:opacity 0.3s, transform 0.3s;
-  display:block;
+
+.trophy-img-wrap {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(5, 3, 12, 0.8);
 }
-.ach-item:hover .ach-img { opacity:1; transform:scale(1.04); }
-.ach-badge {
-  flex-shrink:0; padding:3px 12px; border-radius:999px;
-  font-family:'Cinzel',serif; font-size:9px;
-  font-weight:600; white-space:nowrap; letter-spacing:1px;
+.trophy-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  opacity: 0.88;
 }
-.b-gold   { background:rgba(201,168,76,0.07); color:rgba(201,168,76,0.7); border:1px solid rgba(201,168,76,0.2); }
-.b-silver { background:rgba(180,180,190,0.06); color:rgba(180,180,190,0.6); border:1px solid rgba(180,180,190,0.18); }
-.b-bronze { background:rgba(160,110,60,0.07); color:rgba(180,130,80,0.65); border:1px solid rgba(160,110,60,0.2); }
-.b-purple { background:rgba(106,61,154,0.08); color:rgba(150,100,210,0.7); border:1px solid rgba(106,61,154,0.22); }
-.b-cyan   { background:rgba(40,130,160,0.08); color:rgba(80,180,210,0.65); border:1px solid rgba(40,130,160,0.2); }
+.trophy-card:hover .trophy-img-wrap img {
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+/* Gradient overlay on image */
+.trophy-img-wrap::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(10,6,20,0.9));
+  pointer-events: none;
+}
+
+.trophy-info {
+  padding: 18px 20px 20px;
+  position: relative; z-index: 1;
+}
+
+.trophy-medal {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.trophy-name {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgba(212,200,168,0.9);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.trophy-sub {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: rgba(201,168,76,0.55);
+  margin-bottom: 6px;
+}
+
+.trophy-org {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(200,191,168,0.3);
+  text-transform: uppercase;
+}
+
+.trophy-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 14px;
+  border-radius: 999px;
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.b-gold   { background:rgba(201,168,76,0.07); color:rgba(201,168,76,0.8); border:1px solid rgba(201,168,76,0.25); }
+.b-silver { background:rgba(180,180,190,0.06); color:rgba(180,180,190,0.7); border:1px solid rgba(180,180,190,0.2); }
+.b-bronze { background:rgba(160,110,60,0.07); color:rgba(200,150,90,0.75); border:1px solid rgba(160,110,60,0.25); }
+.b-purple { background:rgba(106,61,154,0.08); color:rgba(160,110,220,0.8); border:1px solid rgba(106,61,154,0.25); }
+.b-cyan   { background:rgba(40,130,160,0.08); color:rgba(80,190,220,0.75); border:1px solid rgba(40,130,160,0.25); }
 
 /* EDUCATION */
 .edu-path { position:relative; padding-left:36px; }
@@ -444,11 +516,36 @@ footer {
   .stats-row{grid-template-columns:repeat(2,1fr);}
   .spells-grid{grid-template-columns:repeat(2,1fr);}
   .bar-right{display:none;}
-  .ach-badge{display:none;}
+  .trophy-grid{grid-template-columns:1fr;}
+  .trophy-img-wrap{height:180px;}
 }
 </style>
 </head>
 <body>
+
+<!-- Tap to play music button -->
+<div id="tap-play-btn" style="
+  display:none; position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+  z-index:9999; align-items:center; gap:12px;
+  background:rgba(10,6,20,0.92); border:1px solid rgba(201,168,76,0.3);
+  border-radius:999px; padding:12px 26px;
+  font-family:'Cinzel',serif; font-size:11px; letter-spacing:2px;
+  color:rgba(201,168,76,0.85); cursor:pointer;
+  backdrop-filter:blur(16px);
+  box-shadow:0 0 24px rgba(201,168,76,0.12);
+  transition:opacity 0.5s, box-shadow 0.3s;
+  animation: pulse-btn 2s ease-in-out infinite;
+">
+  <span style="font-size:18px;">♪</span>
+  <span>TAP TO PLAY MUSIC</span>
+  <span style="font-size:18px;">♪</span>
+</div>
+<style>
+@keyframes pulse-btn {
+  0%,100%{ box-shadow:0 0 18px rgba(201,168,76,0.12); }
+  50%{ box-shadow:0 0 36px rgba(201,168,76,0.28), 0 0 60px rgba(106,61,154,0.1); }
+}
+</style>
 
 <!-- Wand cursor -->
 <div id="wand">
@@ -525,7 +622,7 @@ footer {
       <p class="about-p">From competing at IIT Delhi, DTU, NSUT, and IIIT Una to bending hardware and software to my will, I walk the treacherous path where the physical world and the digital cosmos converge. I believe the future belongs to those who build bridges between silicon and sentience.</p>
       <p class="about-p">Available for opportunities — based in Delhi, India. Open to VLSI, IoT, and AI-focused roles and collaborations.</p>
       <div class="stats-row">
-        <div class="stat-gem"><div class="stat-val">7+</div><div class="stat-lbl">Victories</div></div>
+        <div class="stat-gem"><div class="stat-val">10+</div><div class="stat-lbl">Victories</div></div>
         <div class="stat-gem"><div class="stat-val">B.Tech</div><div class="stat-lbl">VLSI</div></div>
         <div class="stat-gem"><div class="stat-val">Delhi</div><div class="stat-lbl">India</div></div>
       </div>
@@ -571,68 +668,149 @@ footer {
       <div class="s-line"></div>
       <span class="s-icon">🏆</span>
     </div>
-    <div class="ach-item">
-      <div class="ach-medal">🏆</div>
-      <div class="ach-body">
-        <div class="ach-name">TinkerCase DTU — IEEE</div>
-        <div class="ach-sub">Best Fresher Team</div>
+
+    <div class="trophy-grid">
+
+      <!-- 1 -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="dtu_IEEE.jpg" alt="TinkerCase DTU IEEE">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">🏆</span>
+          <div class="trophy-name">TinkerCase DTU — IEEE</div>
+          <div class="trophy-sub">Best Fresher Team</div>
+          <div class="trophy-org">Delhi Technological University</div>
+          <span class="trophy-badge b-purple">BEST FRESHER</span>
+        </div>
       </div>
-      <img class="ach-img" src="dtu_IEEE.jpg" alt="DTU IEEE">
-      <span class="ach-badge b-purple">BEST FRESHER</span>
-    </div>
-    <div class="ach-item">
-      <div class="ach-medal">🥇</div>
-      <div class="ach-body">
-        <div class="ach-name">USAR Hackfest</div>
-        <div class="ach-sub">1st Position</div>
+
+      <!-- 2 -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="usar.jpg" alt="USAR Hackfest">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">🥇</span>
+          <div class="trophy-name">USAR Hackfest</div>
+          <div class="trophy-sub">1st Position</div>
+          <div class="trophy-org">USAR, GGSIPU</div>
+          <span class="trophy-badge b-gold">1ST PLACE</span>
+        </div>
       </div>
-      <img class="ach-img" src="usar.jpg" alt="USAR Hackfest">
-      <span class="ach-badge b-gold">1ST PLACE</span>
-    </div>
-    <div class="ach-item">
-      <div class="ach-medal">🥈</div>
-      <div class="ach-body">
-        <div class="ach-name">NSUT Avanya</div>
-        <div class="ach-sub">2nd Position</div>
+
+      <!-- 3 -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="nsut.jpg" alt="NSUT Avanya">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">🥈</span>
+          <div class="trophy-name">NSUT Avanya</div>
+          <div class="trophy-sub">2nd Position</div>
+          <div class="trophy-org">Netaji Subhas University of Technology</div>
+          <span class="trophy-badge b-silver">2ND PLACE</span>
+        </div>
       </div>
-      <img class="ach-img" src="nsut.jpg" alt="NSUT Avanya">
-      <span class="ach-badge b-silver">2ND PLACE</span>
-    </div>
-    <div class="ach-item">
-      <div class="ach-medal">🥉</div>
-      <div class="ach-body">
-        <div class="ach-name">IIIT Una — Meraki</div>
-        <div class="ach-sub">3rd Position</div>
+
+      <!-- 4 -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="iiit_una.jpg" alt="IIIT Una Meraki">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">🥉</span>
+          <div class="trophy-name">IIIT Una — Meraki</div>
+          <div class="trophy-sub">3rd Position</div>
+          <div class="trophy-org">IIIT Una, Himachal Pradesh</div>
+          <span class="trophy-badge b-bronze">3RD PLACE</span>
+        </div>
       </div>
-      <img class="ach-img" src="iiit_una.jpg" alt="IIIT Una Meraki">
-      <span class="ach-badge b-bronze">3RD PLACE</span>
-    </div>
-    <div class="ach-item">
-      <div class="ach-medal">⭐</div>
-      <div class="ach-body">
-        <div class="ach-name">IIT Delhi</div>
-        <div class="ach-sub">Top 5</div>
+
+      <!-- 5 -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="iiit_delhi.jpg" alt="IIT Delhi">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">⭐</span>
+          <div class="trophy-name">IIT Delhi</div>
+          <div class="trophy-sub">Top 5</div>
+          <div class="trophy-org">Indian Institute of Technology Delhi</div>
+          <span class="trophy-badge b-cyan">TOP 5</span>
+        </div>
       </div>
-      <img class="ach-img" src="iiit_delhi.jpg" alt="IIT Delhi">
-      <span class="ach-badge b-cyan">TOP 5</span>
-    </div>
-    <div class="ach-item">
-      <div class="ach-medal">🥉</div>
-      <div class="ach-body">
-        <div class="ach-name">DTU Engifest</div>
-        <div class="ach-sub">3rd Position</div>
+
+      <!-- 6 -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="invictus_dtu.jpg" alt="DTU Engifest">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">🥉</span>
+          <div class="trophy-name">DTU Engifest</div>
+          <div class="trophy-sub">3rd Position</div>
+          <div class="trophy-org">Delhi Technological University</div>
+          <span class="trophy-badge b-bronze">3RD PLACE</span>
+        </div>
       </div>
-      <img class="ach-img" src="invictus_dtu.jpg" alt="DTU Engifest">
-      <span class="ach-badge b-bronze">3RD PLACE</span>
-    </div>
-    <div class="ach-item">
-      <div class="ach-medal">🥉</div>
-      <div class="ach-body">
-        <div class="ach-name">Maharaja Agrasen — Electrozeal</div>
-        <div class="ach-sub">3rd Position</div>
+
+      <!-- 7 -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="maharaja_agrasen.jpg" alt="Maharaja Agrasen Electrozeal">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">🥉</span>
+          <div class="trophy-name">Maharaja Agrasen — Electrozeal</div>
+          <div class="trophy-sub">3rd Position</div>
+          <div class="trophy-org">Maharaja Agrasen Institute of Technology</div>
+          <span class="trophy-badge b-bronze">3RD PLACE</span>
+        </div>
       </div>
-      <img class="ach-img" src="maharaja_agrasen.jpg" alt="Electrozeal">
-      <span class="ach-badge b-bronze">3RD PLACE</span>
+
+      <!-- 8 — NEW: Code Royale VIPS-TC -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="code_royale_vips.jpg" alt="Code Royale VIPS-TC">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">🥉</span>
+          <div class="trophy-name">Code Royale — VIPS-TC</div>
+          <div class="trophy-sub">2nd Runner Up &nbsp;·&nbsp; Team Eye Identity</div>
+          <div class="trophy-org">Aarvak · TISEC, VIPS-TC &nbsp;·&nbsp; 08 Apr 2026</div>
+          <span class="trophy-badge b-bronze">2ND RUNNER UP</span>
+        </div>
+      </div>
+
+      <!-- 9 — NEW: Robo Soccer 2nd, CONVOKE 3.0 -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="robo_soccer_2nd_convoke.jpg" alt="Robo Soccer 2nd CONVOKE">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">🥈</span>
+          <div class="trophy-name">Robo Soccer — CONVOKE 3.0</div>
+          <div class="trophy-sub">2nd Position &nbsp;·&nbsp; Team Pralay</div>
+          <div class="trophy-org">Cluster Innovation Centre, University of Delhi</div>
+          <span class="trophy-badge b-silver">2ND PLACE</span>
+        </div>
+      </div>
+
+      <!-- 10 — NEW: Robo Soccer 3rd, CONVOKE 3.0 -->
+      <div class="trophy-card">
+        <div class="trophy-img-wrap">
+          <img src="robo_soccer_3rd_convoke.jpg" alt="Robo Soccer 3rd CONVOKE">
+        </div>
+        <div class="trophy-info">
+          <span class="trophy-medal">🥉</span>
+          <div class="trophy-name">Robo Soccer — CONVOKE 3.0</div>
+          <div class="trophy-sub">3rd Position &nbsp;·&nbsp; Team Chilli Potato</div>
+          <div class="trophy-org">Cluster Innovation Centre, University of Delhi</div>
+          <span class="trophy-badge b-bronze">3RD PLACE</span>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -960,7 +1138,6 @@ document.addEventListener('mousemove',e=>{
   wandEl.style.top=e.clientY+'px';
   glowEl.style.left=e.clientX+'px';
   glowEl.style.top=e.clientY+'px';
-  // Sparse trail — only 20% chance
   if(Math.random()<0.18){
     const s=document.createElement('div');
     s.className='spark';
@@ -973,7 +1150,7 @@ document.addEventListener('mousemove',e=>{
   }
 });
 
-/* Click burst — small and tasteful */
+/* Click burst */
 document.addEventListener('click',e=>{
   for(let i=0;i<8;i++){
     const s=document.createElement('div');
@@ -1012,22 +1189,34 @@ const skObs=new IntersectionObserver(entries=>{
 },{threshold:0.3});
 const skEl=document.getElementById('sk-rows');
 if(skEl)skObs.observe(skEl);
+
+/* MUSIC */
+const music = document.getElementById('bg-music');
+music.volume = 0.6;
+
+const tapBtn = document.getElementById('tap-play-btn');
+
+function startMusic() {
+  music.muted = false;
+  music.play().then(() => {
+    tapBtn.style.opacity = '0';
+    tapBtn.style.pointerEvents = 'none';
+    setTimeout(() => tapBtn.style.display = 'none', 600);
+  }).catch(() => {});
+}
+
+/* Try autoplay (muted trick) */
+music.muted = true;
+music.play().then(() => {
+  music.muted = false;
+  tapBtn.style.display = 'none';
+}).catch(() => {
+  /* Autoplay blocked — show tap button */
+  tapBtn.style.display = 'flex';
+});
+
+tapBtn.addEventListener('click', startMusic);
+tapBtn.addEventListener('touchend', startMusic);
 </script>
 </body>
 </html>
-<script>
-let musicStarted = false;
-
-document.addEventListener("click", function () {
-  const music = document.getElementById("bg-music");
-
-  if (!musicStarted) {
-    music.play().then(() => {
-      console.log("Music started");
-    }).catch(err => {
-      console.log("Error:", err);
-    });
-    musicStarted = true;
-  }
-});
-</script>
